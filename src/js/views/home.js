@@ -1,72 +1,52 @@
-import React from "react";
-import Button from 'react-bootstrap/Button';
-import Card from 'react-bootstrap/Card';
-import CardGroup from 'react-bootstrap/CardGroup';
-import { Scrollbars } from 'react-custom-scrollbars-2';
+import React, { useContext } from "react";
+import { Container, Row, Col } from "react-bootstrap";
+import CharCard from "../component/characterCard";
+import PlanetCard from "../component/planetCard";
+import ShipCard from "../component/shipCard";
+import { Context } from "../store/appContext";
+//import "../../styles/home.scss";
 
+export const Home = () => {
+	const { store } = useContext(Context);
 
-import "../../styles/home.css";
-
-export const Home = () => (
-	<div>
-	<Scrollbars style={{ width: 500, height: 300 }}> 
-		<CardGroup> 
-			<Card className="m-3">
-				<Card.Img variant="top" src="https://picsum.photos/400/200" />
-				<Card.Body>
-					<Card.Title>Card Title</Card.Title>
-					<Card.Text>
-					Some quick example text to build on the card title and make up the
-					bulk of the card's content.
-					</Card.Text>
-					<Button variant="primary">Go somewhere</Button>
-				</Card.Body>
-			</Card>
-			<Card className="m-3">
-				<Card.Img variant="top" src="https://picsum.photos/400/200" />
-				<Card.Body>
-					<Card.Title>Card Title</Card.Title>
-					<Card.Text>
-					Some quick example text to build on the card title and make up the
-					bulk of the card's content.
-					</Card.Text>
-					<Button variant="primary">Go somewhere</Button>
-				</Card.Body>
-			</Card>
-			<Card className="m-3">
-				<Card.Img variant="top" src="https://picsum.photos/400/200" />
-				<Card.Body>
-					<Card.Title>Card Title</Card.Title>
-					<Card.Text>
-					Some quick example text to build on the card title and make up the
-					bulk of the card's content.
-					</Card.Text>
-					<Button variant="primary">Go somewhere</Button>
-				</Card.Body>
-			</Card>
-			<Card className="m-3">
-				<Card.Img variant="top" src="https://picsum.photos/400/200" />
-				<Card.Body>
-					<Card.Title>Card Title</Card.Title>
-					<Card.Text>
-					Some quick example text to build on the card title and make up the
-					bulk of the card's content.
-					</Card.Text>
-					<Button variant="primary">Go somewhere</Button>
-				</Card.Body>
-			</Card>
-			<Card className="m-3">
-				<Card.Img variant="top" src="https://picsum.photos/400/200" />
-				<Card.Body>
-					<Card.Title>Card Title</Card.Title>
-					<Card.Text>
-					Some quick example text to build on the card title and make up the
-					bulk of the card's content.
-					</Card.Text>
-					<Button variant="primary">Go somewhere</Button>
-				</Card.Body>
-			</Card>
-		</CardGroup>
-	</Scrollbars>
-	</div>
-)
+	return (
+		<Container>
+			<Row>
+				<Col>
+					<h2 className="heading">Characters</h2>
+				</Col>
+			</Row>
+			<Row>
+				<div className="d-flex justify-content-between overFlow">
+					{store.people
+						? store.people.map((elem, index) => <CharCard key={index} id={++index} character={elem} />)
+						: ""}
+				</div>
+			</Row>
+			<Row>
+				<Col>
+					<h2 className="heading">Planets</h2>
+				</Col>
+			</Row>
+			<Row>
+				<div className="d-flex justify-content-between overFlow">
+					{store.planets
+						? store.planets.map((elem, index) => <PlanetCard key={index} id={++index} planet={elem} />)
+						: ""}
+				</div>
+			</Row>
+			<Row>
+				<Col>
+					<h2 className="heading">Start Ships</h2>
+				</Col>
+			</Row>
+			<Row>
+				<div className="d-flex justify-content-between overFlow">
+					{store.starShips
+						? store.starShips.map((elem, index) => <ShipCard key={index} id={++index} ship={elem} />)
+						: ""}
+				</div>
+			</Row>
+		</Container>
+	);
+};
